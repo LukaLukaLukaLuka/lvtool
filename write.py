@@ -11,11 +11,16 @@ def compare_files(file1, file2):
             return False  # noqa
 
 
+ifisblank = compare_files("write.~wr", "blank.txt")
+
 while True:
     command = input("CMDWrite > ")
     if command == ":w":
         a = input("Insert text > ")
-        os.system(f"echo {a} >> write.~wr")
+        if ifisblank == False:  # noqa
+            os.system(f"echo {a} >> write.~wr")
+        else:
+            os.system(f"echo {a} > write.~wr")
     elif command == ":v":
         try:
             os.system("type write.~wr")  # noqa
@@ -46,7 +51,7 @@ while True:
         except FileNotFoundError:
             pass
         finally:
-            os.system(r".\mfl.bat write.~wr")
+            os.system(r".\cpy")
     elif command == ":o":
         a = input("Insert file to open ( Relative or Absolute Path ) > ")
         fn = a
