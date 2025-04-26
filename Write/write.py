@@ -14,6 +14,8 @@ class View:
         for i in range(len(l)):
             if l[i].lstrip().startswith("#"):
                 print(Fore.GREEN + l[i])
+            elif l[i].lstrip().startswith("---") and l[i].lstrip().endswith("---"):
+                print(Fore.BLUE + l[i])
             else:
                 print(Fore.WHITE + l[i])
 
