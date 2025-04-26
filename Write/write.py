@@ -1,23 +1,55 @@
 import os
 
-from colorama import Fore
+from colorama import Fore, Style
 
 # Consts
 fn = ""
 fnexists = False
 l = []  # noqa
 cwd = os.getcwd()
+BOLD = "\033[1m"
+ITALIC = "\033[3m"
+UNDERLINE = "\033[4m"
+RESET = Style.RESET_ALL
 
 
 class View:
     def md():
+        def md_bold(line):
+            out = ""
+            bold = False
+            i = 0
+            while i < len(line):
+                if line[i : i + 2] == "**":
+                    out += BOLD if not bold else RESET
+                    bold = not bold
+                    i += 2
+                else:
+                    out += line[i]
+                    i += 1
+            return out
+
+        def md_italic(line):
+            out = ""
+            italic = False
+            i = 0
+            while i < len(line):
+                if line[i : i + 1] == "*":
+                    out += ITALIC if not italic else RESET
+                    italic = not italic
+                    i += 1
+                else:
+                    out += line[i]
+                    i += 1
+            return out
+
         for i in range(len(l)):
             if l[i].lstrip().startswith("#"):
                 print(Fore.GREEN + l[i])
             elif l[i].lstrip().startswith("---") and l[i].lstrip().endswith("---"):
                 print(Fore.BLUE + l[i])
             else:
-                print(Fore.WHITE + l[i])
+                print(Fore.WHITE + md_bold(md_italic(l[i])))
 
     def txt():
         for i in range(len(l)):
