@@ -2,6 +2,9 @@ import os
 
 import colorama
 from colorama import Fore, Style
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PythonLexer
 
 # Consts
 fn = ""
@@ -20,6 +23,14 @@ class View:
         for i in range(len(l)):
             os.system(f"type {Fore.WHITE + l[i]} | more")
 
+    def py():
+        count = 0
+        for i in range(len(l)):
+            print(highlight(l[i], PythonLexer(), TerminalFormatter()), end="")
+            count += 1
+            if count % 20 == 0:
+                input("Press Enter to Continue...")
+
 
 while True:
 
@@ -36,6 +47,9 @@ while True:
         _, extension = os.path.splitext(fn)
         if extension == ".txt":
             View.txt()
+        elif command == ":py":
+            pyinput = input("What command do you want to run in python?: ")
+            eval(pyinput)
         else:
             View.txt()
     elif command == ":sa":
