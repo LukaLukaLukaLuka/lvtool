@@ -1,7 +1,7 @@
 import os
 
 import colorama
-from colorama import Fore, Style
+from colorama import Style
 from pygments import highlight
 from pygments.formatters import TerminalFormatter
 from pygments.lexers import PythonLexer
@@ -21,7 +21,7 @@ colorama.init(autoreset=True)
 class View:
     def txt():
         for i in range(len(l)):
-            os.system(f"type {Fore.WHITE + l[i]} | more")
+            print(l[i])
 
     def py():
         count = 0
@@ -95,5 +95,9 @@ while True:
         print("Old text: " + l[edput - 1])
         edputext = input("Insert new text > ")
         l[edput - 1] = edputext
+    elif command == ":o":
+        oput = input("What file do you want to open? (Absolute or relative path): ")
+        with open(oput, "r", encoding="utf-8") as f:
+            l = f.readlines()  # noqa
     else:
         print("Invalid Command!")
