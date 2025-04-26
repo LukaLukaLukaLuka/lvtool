@@ -12,7 +12,7 @@ cwd = os.getcwd()
 class View:
     def md():
         for i in range(len(l)):
-            if l[i][0] == "#":
+            if l[i].lstrip().startswith("#"):
                 print(Fore.GREEN + l[i])
             else:
                 print(Fore.WHITE + l[i])
