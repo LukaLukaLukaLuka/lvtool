@@ -20,8 +20,12 @@ colorama.init(autoreset=True)
 
 class View:
     def txt():
+        count = 0
         for i in range(len(l)):
             print(l[i])
+            count += 1
+            if count % 20 == 0:
+                input("Press Enter to Continue...")
 
     def py():
         count = 0
