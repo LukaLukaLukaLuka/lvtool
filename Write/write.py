@@ -15,6 +15,9 @@ RESET = Style.RESET_ALL
 
 class View:
     def md():
+        def printst(text):
+            return md_bold(md_italic(text))
+
         def md_bold(line):
             out = ""
             bold = False
@@ -49,7 +52,7 @@ class View:
             elif l[i].lstrip().startswith("---") and l[i].lstrip().endswith("---"):
                 print(Fore.BLUE + l[i])
             else:
-                print(Fore.WHITE + md_bold(md_italic(l[i])))
+                print(printst(Fore.WHITE + l[i]))
 
     def txt():
         for i in range(len(l)):
