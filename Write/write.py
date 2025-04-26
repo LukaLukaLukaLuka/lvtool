@@ -28,7 +28,7 @@ class View:
             print(l[i])
             count += 1
             if count % 20 == 0:
-                input("Press Enter to Continue...")
+                input("Press Any Key to Continue...")
 
     def py():
         count = 0
@@ -68,9 +68,8 @@ while True:
             View.txt()
         elif extension == ".md":
             View.md()
-        elif command == ":py":
-            pyinput = input("What command do you want to run in python?: ")
-            eval(pyinput)
+        elif extension == ".py":
+            View.py()
         else:
             View.txt()
     elif command == ":sa":
