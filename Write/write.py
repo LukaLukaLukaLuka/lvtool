@@ -121,5 +121,9 @@ while True:
             l = f.readlines()  # noqa
         fn = oput
         _, extension = os.path.splitext(fn)
+    elif command == ":i":
+        aput = int(input("What line do you want to insert to?: "))
+        atext = input("Insert text > ")
+        l.insert(aput - 1, atext)
     else:
         print("Invalid Command!")
