@@ -5,6 +5,8 @@ from colorama import Style
 from pygments import highlight
 from pygments.formatters import TerminalFormatter
 from pygments.lexers import PythonLexer
+from rich.console import Console
+from rich.markdown import Markdown
 
 # Consts
 fn = ""
@@ -16,6 +18,7 @@ ITALIC = "\033[3m"
 UNDERLINE = "\033[4m"
 RESET = Style.RESET_ALL
 colorama.init(autoreset=True)
+console = Console()
 
 
 class View:
@@ -33,7 +36,19 @@ class View:
             print(highlight(l[i], PythonLexer(), TerminalFormatter()), end="")
             count += 1
             if count % 20 == 0:
-                input("Press Enter to Continue...")
+                input("Press Any Key to Continue...")
+
+    def md():
+        text = "\n".join(l)
+        lines = text.splitlines()
+        console = Console()
+        for i in range(0, len(lines), 20):
+            chunk = "\n".join(lines[i : i + 20])
+            markdown = Markdown(chunk)
+            console.print(markdown)
+            if i + 20 < len(lines):
+                input("Press Any Key to Continue")
+                print("\n" * 20)
 
 
 while True:
@@ -51,6 +66,8 @@ while True:
         _, extension = os.path.splitext(fn)
         if extension == ".txt":
             View.txt()
+        elif extension == ".md":
+            View.md()
         elif command == ":py":
             pyinput = input("What command do you want to run in python?: ")
             eval(pyinput)
@@ -103,5 +120,7 @@ while True:
         oput = input("What file do you want to open? (Absolute or relative path): ")
         with open(oput, "r", encoding="utf-8") as f:
             l = f.readlines()  # noqa
+        fn = oput
+        _, extension = os.path.splitext(fn)
     else:
         print("Invalid Command!")
