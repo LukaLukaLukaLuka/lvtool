@@ -2,8 +2,20 @@ import os
 
 # Consts
 fn = ""
+fnexists = False
 l = []  # noqa
 cwd = os.getcwd()
+
+
+class View:
+    def md():
+        pass
+
+    def txt():
+        for i in range(len(l)):
+            print(l[i])
+
+
 while True:
 
     def save():
@@ -16,8 +28,11 @@ while True:
         winput = input("Insert text > ")
         l.append(winput)
     elif command == ":v":
-        for i in range(len(l)):
-            print(l[i])
+        _, extension = os.path.splitext(fn)
+        if extension == ".txt":
+            View.txt()
+        else:
+            View.txt()
     elif command == ":sa":
         fn = input("Insert filename > ")
         save()
