@@ -1,5 +1,7 @@
 import os
 
+from colorama import Fore
+
 # Consts
 fn = ""
 fnexists = False
@@ -9,11 +11,15 @@ cwd = os.getcwd()
 
 class View:
     def md():
-        pass
+        for i in range(len(l)):
+            if l[i][0] == "#":
+                print(Fore.GREEN + l[i])
+            else:
+                print(Fore.WHITE + l[i])
 
     def txt():
         for i in range(len(l)):
-            print(l[i])
+            print(Fore.WHITE + l[i])
 
 
 while True:
@@ -23,7 +29,7 @@ while True:
         for i in range(1, len(l)):
             os.system(f"echo {l[i]} >> {fn}")
 
-    command = input("CMDWrite > ")
+    command = input(Fore.WHITE + "CMDWrite > ")
     if command == ":w":
         winput = input("Insert text > ")
         l.append(winput)
@@ -31,6 +37,8 @@ while True:
         _, extension = os.path.splitext(fn)
         if extension == ".txt":
             View.txt()
+        elif extension == ".md":
+            View.md()
         else:
             View.txt()
     elif command == ":sa":
