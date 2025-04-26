@@ -120,6 +120,7 @@ while True:
         with open(oput, "r", encoding="utf-8") as f:
             l = f.readlines()  # noqa
         fn = oput
+        fnexists = True
         _, extension = os.path.splitext(fn)
     elif command == ":i":
         aput = int(input("What line do you want to insert to?: "))
