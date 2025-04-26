@@ -1,5 +1,6 @@
 import os
 
+import colorama
 from colorama import Fore, Style
 
 # Consts
@@ -11,52 +12,13 @@ BOLD = "\033[1m"
 ITALIC = "\033[3m"
 UNDERLINE = "\033[4m"
 RESET = Style.RESET_ALL
+colorama.init(autoreset=True)
 
 
 class View:
-    def md():
-        def printst(text):
-            return md_bold(md_italic(text))
-
-        def md_bold(line):
-            out = ""
-            bold = False
-            i = 0
-            while i < len(line):
-                if line[i : i + 2] == "**":
-                    out += BOLD if not bold else RESET
-                    bold = not bold
-                    i += 2
-                else:
-                    out += line[i]
-                    i += 1
-            return out
-
-        def md_italic(line):
-            out = ""
-            italic = False
-            i = 0
-            while i < len(line):
-                if line[i : i + 1] == "*":
-                    out += ITALIC if not italic else RESET
-                    italic = not italic
-                    i += 1
-                else:
-                    out += line[i]
-                    i += 1
-            return out
-
-        for i in range(len(l)):
-            if l[i].lstrip().startswith("#"):
-                print(Fore.GREEN + l[i])
-            elif l[i].lstrip().startswith("---") and l[i].lstrip().endswith("---"):
-                print(Fore.BLUE + l[i])
-            else:
-                print(printst(Fore.WHITE + l[i]))
-
     def txt():
         for i in range(len(l)):
-            print(Fore.WHITE + l[i])
+            os.system(f"type {Fore.WHITE + l[i]} | more")
 
 
 while True:
@@ -66,7 +28,7 @@ while True:
         for i in range(1, len(l)):
             os.system(f"echo {l[i]} >> {fn}")
 
-    command = input(Fore.WHITE + "CMDWrite > ")
+    command = input("CMDWrite > ")
     if command == ":w":
         winput = input("Insert text > ")
         l.append(winput)
@@ -74,8 +36,6 @@ while True:
         _, extension = os.path.splitext(fn)
         if extension == ".txt":
             View.txt()
-        elif extension == ".md":
-            View.md()
         else:
             View.txt()
     elif command == ":sa":
@@ -122,6 +82,4 @@ while True:
         edputext = input("Insert new text > ")
         l[edput - 1] = edputext
     else:
-        print(
-            "Invalid Command! Please refer to the manual (featurelist.md) for the list of commands"
-        )
+        print("Invalid Command!")
