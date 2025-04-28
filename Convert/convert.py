@@ -71,7 +71,7 @@ while True:
     if command == ":c":
         fn = input("Name of file to convert > ")
         fnn = input("New File name > ")
-        _, extension = os.path.splitext()
+        _, extension = os.path.splitext(fn)
         if extension in p:
             os.system(rf".\pandoc.exe {fn} -o {fnn}")
         elif extension in f:
