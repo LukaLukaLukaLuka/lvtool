@@ -73,14 +73,19 @@ while True:
         fnn = input("New File name > ")
         _, extension = os.path.splitext(fn)
         if extension in p:
-            os.system(rf".\pandoc.exe {fn} -o {fnn}")
+            os.system(f"pandoc {fn} -o {fnn}")
         elif extension in f:
-            os.system(rf".\ffmpeg.exe -i {fn} {fnn}")
+            os.system(f"ffmpeg -i {fn} {fnn}")
         else:
             print("Unsupported File Type")
     elif command == ":q":
         quit()
     elif command == ":i":
-        os.system("tar -xf dependencies.zip")
+        print("If you are not in Admin mode the install won't work.")
+        a = input("Do you want to continue ( Y/N ): ")
+        if a.lower() == "y":
+            os.system("winget install pandoc ffmpeg")
+        else:
+            pass
         if not Exception:
             print("Install Succes!")
