@@ -73,9 +73,9 @@ while True:
         fnn = input("New File name > ")
         _, extension = os.path.splitext(fn)
         if extension in p:
-            os.system(f"pandoc {fn} -o {fnn}")
+            os.system(f"pandoc --quiet {fn} -o {fnn}")
         elif extension in f:
-            os.system(f"ffmpeg -i {fn} {fnn}")
+            os.system(f"ffmpeg -loglevel quiet -hide_banner -i {fn} {fnn}")
         else:
             print("Unsupported File Type")
     elif command == ":q":
