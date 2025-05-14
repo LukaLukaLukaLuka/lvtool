@@ -4,8 +4,8 @@ import typer
 
 app = typer.Typer()
 d = {
-    "write": "curl -o write.py https://raw.githubusercontent.com/LukaLukaLukaLuka/lvtool/refs/heads/master/Write/write.py?token=GHSAT0AAAAAADAO7UNMJ2WZVYAND4VI7FGA2BETCMQ",
-    "convert": "curl -o convert.py https://raw.githubusercontent.com/LukaLukaLukaLuka/lvtool/refs/heads/master/Convert/convert.py?token=GHSAT0AAAAAADAO7UNMS33YNFJJ44KXVUEU2BETD7A",
+    "write": 'curl -H "Authorization: token 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" -o write.py "https://raw.githubusercontent.com/LukaLukaLukaLuka/lvtool/refs/heads/master/Write/write.py"',
+    "convert": 'curl -H "Authorization: token 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" -o convert.py "https://raw.githubusercontent.com/LukaLukaLukaLuka/lvtool/refs/heads/master/Convert/convert.py"',
 }
 
 
