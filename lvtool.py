@@ -9,18 +9,24 @@ d = {
 }
 
 
-def search(program):
+def searchi(program):
     os.system(d.get(program))
+
+
+def searchu(program):
+    os.system(f"del {program}.py")
 
 
 @app.command()
 def install(programid: str):
-    search(programid)
+    searchi(programid)
 
 
-@app.command()
-def placeholder():
-    pass
+app.command()
+
+
+def uninstall(programid: str):
+    searchu(programid)
 
 
 if __name__ == "__main__":
