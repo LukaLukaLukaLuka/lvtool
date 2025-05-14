@@ -1,7 +1,5 @@
 import os
 
-import colorama
-from colorama import Style
 from pygments import highlight
 from pygments.formatters import TerminalFormatter
 from pygments.lexers import PythonLexer
@@ -13,11 +11,6 @@ fn = ""
 fnexists = False
 l = []  # noqa
 cwd = os.getcwd()
-BOLD = "\033[1m"
-ITALIC = "\033[3m"
-UNDERLINE = "\033[4m"
-RESET = Style.RESET_ALL
-colorama.init(autoreset=True)
 console = Console()
 
 
@@ -51,18 +44,24 @@ class View:
                 print("\n" * 20)
 
 
-while True:
-
-    def save():
+class Commands:
+    @staticmethod
+    def saveer():
+        global fn
+        global fnexists
+        global l  # noqa
         os.system(f"echo {l[0]} > {fn}")
         for i in range(1, len(l)):
             os.system(f"echo {l[i]} >> {fn}")
 
-    command = input("CMDWrite > ")
-    if command == ":w":
+    @staticmethod
+    def write():
+        global l  # noqa
         winput = input("Insert text > ")
         l.append(winput)
-    elif command == ":v":
+
+    @staticmethod
+    def view():
         _, extension = os.path.splitext(fn)
         if extension == ".txt":
             View.txt()
@@ -72,24 +71,36 @@ while True:
             View.py()
         else:
             View.txt()
-    elif command == ":sa":
+
+    @staticmethod
+    def saveas():
+        global fn
+        global fnexists
+        global l  # noqa
         fn = input("Insert filename > ")
-        save()
+        Commands.save()
         size = os.path.getsize(fn)
         print(rf'"{cwd}\{fn}" {len(l)}L, {size}B written')
         fnexists = True
-    elif command == ":s":
+
+    @staticmethod
+    def save():
+        global fn
+        global fnexists
+        global l  # noqa
         if not fnexists:
             fn = input("Insert filename > ")
-            save()
+            Commands.saveer()
             size = os.path.getsize(fn)
             print(rf'"{cwd}\{fn}" {len(l)}L, {size}B written')
             fnexists = True
         else:
-            save()
+            Commands.saveer()
             size = os.path.getsize(fn)
             print(rf'"{cwd}\{fn}" {len(l)}L, {size}B written')
-    elif command == ":q":
+
+    @staticmethod
+    def quit():
         dywtq = input(
             "If you haven't saved your current file any unsaved changes will be lost, do you want to continue? (Y/N): "
         )
@@ -99,32 +110,80 @@ while True:
             pass
         else:
             print("Invalid Charachter!")
-    elif command == ":q!":
+
+    @staticmethod
+    def quitforced():
         quit()
-    elif command == ":cmd":
+
+    @staticmethod
+    def runcmdcommand():
         cmdinput = input("What command do you want to run in cmd?: ")
         os.system(cmdinput)
-    elif command == ":py":
+
+    @staticmethod
+    def runpycommand():
         pyinput = input("What command do you want to run in python?: ")
         eval(pyinput)
-    elif command == ":d":
-        delput = int(input("What line do you want to delete?: "))
-        l.remove(l[delput - 1])
-    elif command == ":e":
+
+    @staticmethod
+    def edit():
+        global l  # noqa
         edput = int(input("What line do you want to edit?: "))
         print("Old text: " + l[edput - 1])
         edputext = input("Insert new text > ")
         l[edput - 1] = edputext
-    elif command == ":o":
+
+    @staticmethod
+    def delete():
+        global l  # noqa
+        delput = int(input("What line do you want to delete?: "))
+        del l[delput - 1]
+
+    @staticmethod
+    def open():
+        global fn
+        global fnexists
+        global l  # noqa
         oput = input("What file do you want to open? (Absolute or relative path): ")
         with open(oput, "r", encoding="utf-8") as f:
             l = f.readlines()  # noqa
         fn = oput
         fnexists = True
         _, extension = os.path.splitext(fn)
-    elif command == ":i":
+
+    @staticmethod
+    def insert():
         aput = int(input("What line do you want to insert to?: "))
         atext = input("Insert text > ")
         l.insert(aput - 1, atext)
-    else:
-        print("Invalid Command!")
+
+
+def main():
+    while True:
+        command = input("CMDWrite > ")
+        if command == ":w":
+            Commands.write()
+        elif command == ":v":
+            Commands.view()
+        elif command == ":sa":
+            Commands.saveas()
+        elif command == ":s":
+            Commands.save()
+        elif command == ":q":
+            Commands.quit()
+        elif command == ":q!":
+            Commands.quitforced()
+        elif command == ":cmd":
+            Commands.runcmdcommand()
+        elif command == ":py":
+            Commands.runpycommand()
+        elif command == ":d":
+            Commands.delete()
+        elif command == ":e":
+            Commands.edit()
+        elif command == ":o":
+            Commands.open()
+        elif command == ":i":
+            Commands.insert()
+        else:
+            print("Invalid Command!")
