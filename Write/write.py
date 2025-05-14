@@ -1,4 +1,5 @@
 import os
+import sys
 
 from pygments import highlight
 from pygments.formatters import TerminalFormatter
@@ -12,6 +13,19 @@ fnexists = False
 l = []  # noqa
 cwd = os.getcwd()
 console = Console()
+d = {
+    ":w": "Commands.write()",
+    ":v": "Commands.view()",
+    ":s": "Commands.save()",
+    ":sa": "Commands.saveas()",
+    ":q": "Commands.quit()",
+    ":d": "Commands.delete()",
+    ":e": "Commands.edit()",
+    ":o": "Commands.open()",
+    ":i": "Commands.insert()",
+    ":cmd": "Commands.runcmdcommand()",
+    ":py": "Commands.runpycommand()",
+}
 
 
 class View:
@@ -105,7 +119,7 @@ class Commands:
             "If you haven't saved your current file any unsaved changes will be lost, do you want to continue? (Y/N): "
         )
         if dywtq.lower() == "y":
-            quit()
+            sys.exit(0)
         elif dywtq.lower() == "n":
             pass
         else:
@@ -113,7 +127,7 @@ class Commands:
 
     @staticmethod
     def quitforced():
-        quit()
+        sys.exit(0)
 
     @staticmethod
     def runcmdcommand():
@@ -161,32 +175,13 @@ class Commands:
 def main():
     while True:
         command = input("CMDWrite > ")
-        if command == ":w":
-            Commands.write()
-        elif command == ":v":
-            Commands.view()
-        elif command == ":sa":
-            Commands.saveas()
-        elif command == ":s":
-            Commands.save()
-        elif command == ":q":
-            Commands.quit()
-        elif command == ":q!":
-            Commands.quitforced()
-        elif command == ":cmd":
-            Commands.runcmdcommand()
-        elif command == ":py":
-            Commands.runpycommand()
-        elif command == ":d":
-            Commands.delete()
-        elif command == ":e":
-            Commands.edit()
-        elif command == ":o":
-            Commands.open()
-        elif command == ":i":
-            Commands.insert()
+        if command != ":q!":
+            try:
+                eval(d.get(command))
+            except:  # noqa
+                print(Exception)
         else:
-            print("Invalid Command!")
+            sys.exit(0)
 
 
 if __name__ == "__main__":
