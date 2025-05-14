@@ -187,3 +187,7 @@ def main():
             Commands.insert()
         else:
             print("Invalid Command!")
+
+
+if __name__ == "__main__":
+    main()
