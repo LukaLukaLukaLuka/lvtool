@@ -22,9 +22,7 @@ def install(programid: str):
     searchi(programid)
 
 
-app.command()
-
-
+@app.command()
 def uninstall(programid: str):
     searchu(programid)
 
