@@ -1,7 +1,9 @@
+# Imports
 import os
 
 import typer
 
+# Consts
 app = typer.Typer()
 installlinks = {
     "write": 'curl -H "Authorization: token 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" -o write.py "https://raw.githubusercontent.com/LukaLukaLukaLuka/lvtool/refs/heads/master/Write/write.py"',
@@ -13,6 +15,7 @@ programinfo = {
 }
 
 
+# Functions
 def searchinstall(program):
     os.system(installlinks.get(program))
 
@@ -25,6 +28,7 @@ def searchsearch(program):
     typer.echo(programinfo.get(program))
 
 
+# App Commands
 @app.command()
 def install(programid: str):
     searchinstall(programid)
@@ -40,5 +44,6 @@ def search(programid: str):
     searchsearch(programid)
 
 
+# Run
 if __name__ == "__main__":
     app()
