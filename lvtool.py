@@ -3,7 +3,7 @@ import os
 
 import typer
 
-# Consts
+# Constants
 app = typer.Typer()
 installlinks = {
     "write": 'curl -H "Authorization: token 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" -o write.py "https://raw.githubusercontent.com/LukaLukaLukaLuka/lvtool/refs/heads/master/Write/write.py"',
